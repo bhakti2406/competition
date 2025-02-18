@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses Page</title> 
+    <style>
+        h1 {
+            text-align: center;
+        }
+        .content {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .search-sort {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+            background-color: #a0a4a4;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .dropdown {
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ffffff;
+            border-radius: 5px;
+        }
+        .courses-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+        .course-box {
+            width: 30%;
+            margin: 10px;
+            padding: 20px;
+            background-color: #dcdce0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            text-align: center;
+            transition: 0.3s;
+        }
+        .course-box:hover {
+            transform: scale(1.05);
+        }
+        .course-description {
+            display: none;
+            font-size: 14px;
+            color: #555;
+        }
+        .course-box:hover .course-description {
+            display: block;
+        }
+        .stars {
+            color: rgb(220, 194, 48);
+            font-size: 18px;
+        }
+        .course-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        #courseDetails {
+            display: none;
+            padding: 20px;
+        }
+        #goBackBtn {
+            display: none;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #submitBtn {
+            display: none;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        #badgeIcon {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-size: 20px;
+            padding: 10px;
+            background-color: #a0a6a3;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #badgeIcon img {
+            width: 30px;
+            height: 30px;
+            margin-right: 5px;
+        }
+        /* Sidebar Styles */
+        #sidebar {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            height: 100%;
+            width: 250px;
+            background-color: #333;
+            color: #fff;
+            transition: 0.3s;
+            padding-top: 20px;
+        }
+        #sidebar a {
+            padding: 15px 20px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #fff;
+            display: block;
+            transition: 0.3s;
+        }
+        #sidebar a:hover {
+            background-color: #575757;
+        }
+        #sidebar .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* Sidebar Toggle Button */
+        #menu-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 30px;
+            cursor: pointer;
+            color: #333;
+        }
+        body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+
+    .content {
+        flex-grow: 1; /* This ensures the content area grows and pushes the footer down */
+    }
+
+    footer {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        footer .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        footer .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+        footer .social-icons {
+            margin-top: 10px;
+        }
+        footer .social-icons img {
+            width: 30px;
+            margin: 0 10px;
+        }
+           body {
+               font-family: Arial, sans-serif;
+               margin: 0;
+               padding: 0;
+               background-color: #f4f4f4;
+           }
+           footer {
+               display: flex;
+               justify-content: space-between;
+               align-items: flex-start;
+               padding: 20px;
+               background-color: #333;
+               color: white;
+           }
+           footer .logo,
+           footer .quick-links,
+           footer .contact,
+           footer .social-icons {
+               flex: 1;
+           }
+           footer .logo img {
+               width: 20%;
+               border-radius: 2px;
+               margin-bottom: 10px;
+           }
+           footer .quick-links,
+           footer .social-icons {
+               display: flex;
+               flex-direction: column;
+           }
+           footer .quick-links a,
+           footer .social-icons a {
+               color: rgb(255, 250, 254);
+               margin-bottom: 10px;
+               text-decoration: none;
+           }
+           footer .contact p {
+               color: rgb(255, 255, 255);
+               margin-bottom: 5px;
+           }
+           footer .social-icons img {
+               width: 30px;
+               margin-bottom: 10px;
+           }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .glowing-text { 
+            font-size: 48px;
+            font-weight: bold;
+            text-align: center;
+            text-shadow: 0 0 5px #afa1a1, 0 0 10px #c2a7a7, 0 0 15px #bfaa7c, 0 0 20px #a9834e;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url("https://i.pinimg.com/736x/b7/fb/d8/b7fbd8424ffb091224fe813a66f8ed22.jpg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+        }
+</style>
+
+
+    </style>
+</head>
+<body>
+    <h2 class="glowing-text" style="font-style: italic;"><u>Courses</u></h2>
+
+    <div id="badgeIcon">
+        <img src="https://cdn.iconscout.com/icon/free/png-512/free-medal-icon-download-in-svg-png-gif-file-formats--champion-award-winner-olympic-games-sign-medals-pack-sports-icons-3804833.png?f=webp&w=512" alt="Badge Icon">
+        <span id="badgeCount">90</span> Badges
+    </div>
+    <div class="content"></div>
+    <div class="search-sort">
+        <select id="category" class="dropdown">
+            <option value="">Search Courses</option>
+            <option value="Web Development">Web Development</option>
+            <option value="Artificial Intelligence">Artificial Intelligence</option>
+            <option value="Data Science">Data Science</option>
+        </select>
+        <select id="sort" class="dropdown">
+            <option value="">Sort By</option>
+            <option value="title-asc">Title (A-Z)</option>
+            <option value="title-desc">Title (Z-A)</option>
+        </select>
+        <select id="filter" class="dropdown">
+            <option value="">All Courses</option>
+            <option value="paid">Paid Courses</option>
+            <option value="free">Free Courses</option>
+        </select>
+    </div>
+    <!-- Sidebar -->
+ <div id="sidebar">
+    <span class="close-btn" onclick="closeNav()">×</span>
+    <img src="https://www.cusaonline.ca/wp-content/uploads/2024/08/Screen-Shot-2024-08-22-at-11.40.11-AM.jpg" alt="LOGO" style="width: 100%; border-radius: 8px; margin-bottom: 20px;">
+    <a href="index.html" class="menu-item">Home</a>
+    <a href="about.html" class="menu-item">About Us</a>
+    <a href="courses.html" class="menu-item">Courses</a>
+    <a href="review.html" class="menu-item">Reviews</a>
+    <a href="enquiry.html" class="menu-item">Enquiry Us</a>
+    <a href="login.html" class="menu-item">Log Out</a>
+</div>
+<div id="main-content">
+    <span id="menu-btn" onclick="openNav()">☰</span>
+    <div class="courses-container">
+        <div class="course-box" id="webDevCourse">
+            <div class="course-title">Web Development</div>
+            <div class="stars">★★★★★</div>
+            <div class="course-description">The process of designing, creating, and maintaining websites or web applications using technologies like HTML, CSS, and JavaScript. It includes both front-end (user interface) and back-end (server-side) development.
+                <br>Price: 80 Badges.</div>
+            <button class="button" id="webDevBtn" onclick="showCourseDetails('webDev')">Learn More</button>
+        </div>
+
+        <div class="course-box" id="aiCourse">
+            <div class="course-title">Artificial Intelligence</div>
+            <div class="stars">★★★★★</div>
+            <div class="course-description">The creation of systems that mimic human intelligence, enabling tasks like learning, reasoning, and problem-solving. It powers applications such as chatbots, recommendation systems, and autonomous vehicles.
+                Price: Free</div>
+            <button class="button" onclick="showCourseDetails('ai')">Learn More</button>
+        </div>
+
+        <div class="course-box" id="dataScienceCourse">
+            <div class="course-title">Data Science</div>
+            <div class="stars">★★★★★</div>
+            <div class="course-description">A multidisciplinary field focused on analyzing and interpreting complex data using tools like statistics, programming, and machine learning. 
+                <br>Price: 120 Badges.</div>
+            <button class="button" id="dataScienceBtn" onclick="showCourseDetails('dataScience')">Learn More</button>
+        </div>
+        <!-- Cyber Security and Ethical Hacking in the same row -->
+        <div class="course-box" id="cyberSecurityCourse">
+            <div class="course-title" style="text-decoration: underline;">Cyber Security</div>
+            <div class="stars">★★★★★</div>
+            <div class="course-description">
+                A field dedicated to protecting systems, networks, and programs from digital attacks. 
+                It involves techniques to ensure the security of sensitive data and infrastructure.
+                <br>Price: 180 Badges.
+            </div>
+            <button class="button" onclick="showCourseDetails('cyberSecurity')">Enroll Now</button>
+        </div>
+    </div>
+
+    <div id="courseDetails">
+        <h2 id="detailsTitle">Course Details</h2>
+        <div id="todoList"></div>
+        <button class="button" id="goBackBtn" onclick="goBack()">Go Back</button>
+        <button class="button" id="submitBtn" onclick="submitCourse()">Submit</button>
+    </div>
+     <!-- Footer -->
+     <footer>
+        <!-- Logo Section (Extreme Left) -->
+        <div class="logo">
+            <img src="https://www.cusaonline.ca/wp-content/uploads/2024/08/Screen-Shot-2024-08-22-at-11.40.11-AM.jpg" alt="Logo" style="width: 80%; border-radius: 8px; margin-bottom: 20px;">
+        </div>
+
+        <!-- Quick Links Section (Left) -->
+        <div class="quick-links">
+            <a href="#">Quick Links:</a>
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="courses.html">Courses</a>
+            <a href="review.html">Reviews</a>
+            <a href="enquiry.html">Enquiry Us</a>
+        </div>
+
+        <!-- Contact Us Section (Center) -->
+        <div class="contact">
+            <h4>Contact Us:</h4>
+            <p><a href="mailto: thinktank@gmail.com">Email: thinktank@gmail.com</a></p>
+            <p>Phone: +91 9381910381</p>
+            <p>Address: A/44 Indraprasth Corporate,<br> Satellite, Ahmedabad, India</p>
+        </div>
+
+        <!-- Follow Us Section (Extreme Right) -->
+        <div class="social-icons">
+            <p>Follow Us On:</p>
+            <div class="row">
+                <a href="https://www.facebook.com" target="main"><img src="https://upload.wikimedia.org/wikipedia/commons/c/cd/Facebook_logo_%28square%29.png" alt="Facebook"></a>
+                <a href="https://x.com" target="main"><img src="https://www.iconpacks.net/icons/2/free-twitter-logo-icon-2429-thumb.png" alt="Twitter"></a>
+            </div>
+            <div class="row">
+                <a href="https://linkedin.com" target="main"><img src="https://static.vecteezy.com/system/resources/previews/018/910/715/non_2x/linkedin-logo-linkedin-symbol-linkedin-icon-free-free-vector.jpg" alt="LinkedIn"></a>
+                <a href="https://instagram.com" target="main"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1000px-Instagram_logo_2022.svg.png" alt="Instagram"></a>
+            </div>
+            <p class="love">Made with ❤️ <i class="icon ion-heart"></i> by Bhakti</p>
+        </div>
+    </footer>
+
+
+    <script>
+         // JavaScript to open and close the sidebar
+    function openNav() {
+        document.getElementById("sidebar").style.left = "0";
+        document.getElementById("main-content").style.marginLeft = "250px";
+    }
+
+    function closeNav() {
+        document.getElementById("sidebar").style.left = "-250px";
+        document.getElementById("main-content").style.marginLeft = "0";
+    }
+
+// Initialize badges (always start with 90 when the website is opened)
+let badges = sessionStorage.getItem("badges") 
+    ? parseInt(sessionStorage.getItem("badges"), 10) 
+    : 90; // Default to 90 if not set
+
+let currentCourse = sessionStorage.getItem("currentCourse") || '';
+let completedTodos = JSON.parse(sessionStorage.getItem("completedTodos")) || [];
+
+// Display badge count
+function updateBadgeCount() {
+    document.getElementById('badgeCount').textContent = badges;
+    sessionStorage.setItem("badges", badges); // Save badges to sessionStorage
+}
+
+// Show course details and to-do list
+function showCourseDetails(course) {
+    // Restrict access to paid courses
+    if ((course === 'webDev' && badges < 80) || 
+        (course === 'dataScience' && badges < 120) || 
+        (course === 'cyberSecurity' && badges < 120)) {
+        alert("You need more badges to access this course.");
+        return;
+    }
+
+    currentCourse = course;
+    sessionStorage.setItem("currentCourse", currentCourse); // Save current course to sessionStorage
+    completedTodos = [];
+    sessionStorage.setItem("completedTodos", JSON.stringify(completedTodos)); // Reset completed todos
+
+    // Hide all course boxes
+    const courses = document.querySelectorAll('.course-box');
+    courses.forEach(courseBox => {
+        courseBox.style.display = 'none';
+    });
+
+    // Show the course details
+    document.getElementById('courseDetails').style.display = 'block';
+    document.getElementById('goBackBtn').style.display = 'inline-block';
+    document.getElementById('submitBtn').style.display = 'none'; // Hide submit button initially
+
+    const todoList = document.getElementById('todoList');
+    const todoItems = {
+        webDev: [
+            "HTML & CSS",
+            "JavaScript",
+            "Backend Development (Node.js, PHP, Python, Ruby)",
+            "Database Management (MySQL, MongoDB, PostgreSQL)",
+            "Version Control/Git & GitHub",
+        ],
+        ai: [
+            "Machine Learning",
+            "Deep Learning",
+            "Natural Language Processing",
+            "Computer Vision",
+            "Reinforcement Learning"
+        ],
+        dataScience: [
+            "Data Analysis & Visualization",
+            "Machine Learning",
+            "Statistics for Data Science",
+            "Big Data Technologies",
+            "Data Engineering"
+        ],
+        cyberSecurity: [
+            "Basics of Networking",
+            "Understanding Cyber Threats",
+            "Secure Coding Practices",
+            "Penetration Testing",
+            "Incident Response & Recovery"
+        ]
+    };
+
+    // Create To-Do List
+    todoList.innerHTML = ''; // Clear previous list
+    todoItems[course].forEach((topic, index) => {
+        const listItem = document.createElement('div');
+        const checked = completedTodos.includes(index) ? 'checked' : '';
+        listItem.innerHTML = `<input type="checkbox" id="todo-${index}" onclick="checkTodo(${index}, '${course}')" ${checked}> ${topic}`;
+        todoList.appendChild(listItem);
+    });
+
+    document.getElementById('detailsTitle').textContent = 
+        course === 'webDev' ? 'Web Development' : 
+        course === 'ai' ? 'Artificial Intelligence' : 
+        course === 'dataScience' ? 'Data Science' : 
+        'Cyber Security';
+}
+
+// Check off to-do list items
+function checkTodo(index, course) {
+    const todoItems = {
+        webDev: 5,
+        ai: 5,
+        dataScience: 5,
+        cyberSecurity: 5
+    };
+
+    // If the current task is out of order
+    if (index !== completedTodos.length) {
+        alert('Please complete the tasks in order!');
+        document.getElementById(`todo-${index}`).checked = false;
+        return;
+    }
+
+    completedTodos.push(index);
+    sessionStorage.setItem("completedTodos", JSON.stringify(completedTodos)); // Save completed todos
+
+    // If all tasks are completed
+    if (completedTodos.length === todoItems[course]) {
+        setTimeout(() => {
+            document.getElementById('submitBtn').style.display = 'inline-block'; // Show submit button
+        }, 500);
+    }
+}
+
+// Submit course and reward badges
+function submitCourse() {
+    let earnedBadges = 0;
+
+    if (currentCourse === 'webDev') {
+        earnedBadges = 80;
+    } else if (currentCourse === 'dataScience') {
+        earnedBadges = 120;
+    } else if (currentCourse === 'cyberSecurity') {
+        earnedBadges = 180;
+    }
+
+    badges += earnedBadges;
+    updateBadgeCount();
+    alert(`Congratulations! You've completed the ${currentCourse} course and earned ${earnedBadges} badges.`);
+    goBack(); // Return to course view after submission
+}
+
+// Go Back to the Courses view
+function goBack() {
+    // Show course boxes again
+    const courses = document.querySelectorAll('.course-box');
+    courses.forEach(courseBox => {
+        courseBox.style.display = 'block';
+    });
+
+    document.querySelectorAll('.enroll-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const course = this.getAttribute('data-course'); // Get course name from data attribute
+            showCourseDetails(course); // Show the course details when "Enroll Now" is clicked
+        });
+    });
+
+    // Hide course details and buttons
+    document.getElementById('courseDetails').style.display = 'none';
+    document.getElementById('goBackBtn').style.display = 'none';
+    document.getElementById('submitBtn').style.display = 'none';
+    sessionStorage.removeItem("currentCourse"); // Clear current course
+}
+
+// Load persisted state on page load
+window.onload = function() {
+    updateBadgeCount();
+
+    if (currentCourse) {
+        showCourseDetails(currentCourse);
+    }
+};
+
+        // Filtering functionality for category selection
+document.getElementById("category").addEventListener("change", function () {
+    const categoryValue = this.value;
+    const coursesContainer = document.querySelector(".courses-container");
+    const courses = Array.from(coursesContainer.querySelectorAll(".course-box"));
+
+    courses.forEach(course => {
+        const courseTitle = course.querySelector(".course-title").textContent.trim();
+
+        if (categoryValue && courseTitle !== categoryValue) {
+            course.style.display = "none";
+        } else {
+            course.style.display = "block";
+        }
+    });
+});
+document.getElementById("sort").addEventListener("change", function () {
+        const sortValue = this.value;
+        localStorage.setItem('sortValue', sortValue);
+        const coursesContainer = document.querySelector(".courses-container");
+        const courses = Array.from(coursesContainer.querySelectorAll(".course-box"));
+
+        if (sortValue === "title-asc") {
+            courses.sort((a, b) => {
+                const titleA = a.querySelector(".course-title").textContent.trim();
+                const titleB = b.querySelector(".course-title").textContent.trim();
+                return titleA.localeCompare(titleB);
+            });
+        } else if (sortValue === "title-desc") {
+            courses.sort((a, b) => {
+                const titleA = a.querySelector(".course-title").textContent.trim();
+                const titleB = b.querySelector(".course-title").textContent.trim();
+                return titleB.localeCompare(titleA);
+            });
+        } else if (sortValue === "price-asc") {
+            courses.sort((a, b) => {
+                const priceA = extractPrice(a.querySelector(".course-description").textContent);
+                const priceB = extractPrice(b.querySelector(".course-description").textContent);
+                return priceA - priceB;
+            });
+        } else if (sortValue === "price-desc") {
+            courses.sort((a, b) => {
+                const priceA = extractPrice(a.querySelector(".course-description").textContent);
+                const priceB = extractPrice(b.querySelector(".course-description").textContent);
+                return priceB - priceA;
+            });
+        }
+
+        coursesContainer.innerHTML = "";
+        courses.forEach(course => coursesContainer.appendChild(course));
+        document.getElementById("filter").value = localStorage.getItem('filterValue') || "all";
+        document.getElementById("sort").value = localStorage.getItem('sortValue') || "title-asc";
+    });
+    
+
+    function extractPrice(description) {
+        const match = description.match(/Price: (\d+)/);
+        return match ? parseInt(match[1], 10) : 0; // Default to 0 if no price is found
+    }
+    
+
+    // Filtering functionality for free and paid courses
+    document.getElementById("filter").addEventListener("change", function () {
+        const filterValue = this.value;
+        localStorage.setItem('filterValue', filterValue);
+        const coursesContainer = document.querySelector(".courses-container");
+        const courses = Array.from(coursesContainer.querySelectorAll(".course-box"));
+
+        courses.forEach(course => {
+            const description = course.querySelector(".course-description").textContent;
+            const isFree = description.includes("Free");
+            
+            if (filterValue === "free" && !isFree) {
+                course.style.display = "none";
+            } else if (filterValue === "paid" && isFree) {
+                course.style.display = "none";
+            } else {
+                course.style.display = "block";
+            }
+        });
+                // Search functionality for selecting a specific course
+                document.getElementById("category").addEventListener("change", function () {
+    const selectedCategory = this.value.trim(); // Ensure no accidental whitespace
+    const coursesContainer = document.querySelector(".courses-container");
+    const courses = Array.from(coursesContainer.querySelectorAll(".course-box"));
+
+    courses.forEach(course => {
+        const title = course.querySelector(".course-title").textContent.trim();
+        if (selectedCategory === "all" || selectedCategory === "") {
+            // Show all courses if "all" is selected or no value is selected
+            course.style.display = "block";
+        } else if (title.toLowerCase() === selectedCategory.toLowerCase()) {
+            // Match case-insensitively for consistency
+            course.style.display = "block";
+        } else {
+            // Hide all other courses
+            course.style.display = "none";
+        }
+    })
+    });
+    
+});
+</script>
+<script>
+    // If the URL ends with ".html", remove it from the address bar
+    if (window.location.pathname.endsWith(".html")) {
+        history.replaceState(null, "", window.location.pathname.replace("courses.html", "courses"));
+    }
+</script>
+</body>
+</html>

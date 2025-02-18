@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Reviews</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #1e2a47, #0d1117);
+            color: white;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 50px;
+            color: #e19854;
+            text-shadow: 0 0 10px #d6a372, 0 0 30px #ff7b00, 0 0 50px #ff7b00;
+            margin-top: 20px;
+        }
+
+        .add-review-container {
+            width: 100%;
+            max-width: 500px;
+            background-color: rgba(0, 0, 0, 0.85);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(255, 118, 58, 0.4);
+            margin-bottom: 30px;
+            border: 1px solid #e19854;
+        }
+
+        .review-form input, .review-form textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 6px;
+            border: 1px solid #e19854;
+            background-color: #0e1119;
+            color: white;
+            font-size: 16px;
+        }
+
+        .review-form textarea {
+            resize: none;
+        }
+
+        .review-form button {
+            padding: 12px 24px;
+            background: #ff7b00;
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 6px;
+            width: 100%;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+
+        .review-form button:hover {
+            background: #f4b400;
+        }
+
+        .stars {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+            flex-direction: row-reverse;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .stars input {
+            display: none;
+        }
+
+        .stars label {
+            font-size: 24px;
+            color: #ccc;
+            cursor: pointer;
+        }
+
+        .stars input:checked ~ label,
+        .stars input:checked ~ label ~ label {
+            color: #f4b400;
+        }
+
+        .stars input:focus + label {
+            outline: 2px solid #0056b3;
+        }
+
+        .reviews-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+        }
+
+        .review-card {
+            width: 100%;
+            margin-bottom: 30px;
+            padding: 15px;
+            border-radius: 12px;
+            background: #1c1f35;
+            box-shadow: 0 10px 20px rgba(255, 118, 58, 0.4);
+            animation: slideIn 0.7s forwards;
+        }
+
+        .review-card:nth-child(even) {
+            background: #2a2f47;
+        }
+
+        .review-header {
+            font-size: 24px;
+            color: #e8af7b;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .review-rating {
+            font-size: 20px;
+            color: #f4b400;
+            margin-top: 10px;
+        }
+
+        .review-text {
+            font-size: 18px;
+            color: #e4e4e4;
+            margin-top: 15px;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #sidebar {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            height: 100%;
+            width: 250px;
+            background-color: #333;
+            color: white;
+            transition: 0.3s;
+            padding-top: 20px;
+        }
+
+        #sidebar a {
+            padding: 15px 20px;
+            text-decoration: none;
+            font-size: 18px;
+            color: white;
+            display: block;
+            transition: 0.3s;
+        }
+
+        #sidebar a:hover {
+            background-color: #575757;
+        }
+
+        #sidebar .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+        }
+
+        #menu-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 30px;
+            cursor: pointer;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1><u>Customer Reviews</u></h1>
+    <div id="sidebar">
+        <span class="close-btn" onclick="closeNav()">×</span>
+        <img src="https://www.cusaonline.ca/wp-content/uploads/2024/08/Screen-Shot-2024-08-22-at-11.40.11-AM.jpg" alt="LOGO" style="width: 100%; border-radius: 8px; margin-bottom: 20px;">
+        <a href="index.html" class="menu-item">Home</a>
+        <a href="about.html" class="menu-item">About Us</a>
+        <a href="courses.html" class="menu-item">Courses</a>
+        <a href="review.html" class="menu-item">Reviews</a>
+        <a href="enquiry.html" class="menu-item">Enquiry Us</a>
+        <a href="login.html" class="menu-item">Log Out</a>
+    </div>
+
+    <div id="main-content">
+        <span id="menu-btn" onclick="openNav()">☰</span>
+
+        <div class="add-review-container">
+            <form class="review-form" onsubmit="submitReview(event)">
+                <input type="text" id="name" placeholder="Your Name" required>
+                <textarea id="reviewText" placeholder="Write your review..." rows="4" required></textarea>
+
+                <div class="stars">
+                    <input type="radio" id="star5" name="rating" value="5" required>
+                    <label for="star5">&#9733;</label>
+                    <input type="radio" id="star4" name="rating" value="4">
+                    <label for="star4">&#9733;</label>
+                    <input type="radio" id="star3" name="rating" value="3">
+                    <label for="star3">&#9733;</label>
+                    <input type="radio" id="star2" name="rating" value="2">
+                    <label for="star2">&#9733;</label>
+                    <input type="radio" id="star1" name="rating" value="1">
+                    <label for="star1">&#9733;</label>
+                </div>
+
+                <button type="submit">Submit Review</button>
+            </form>
+        </div>
+
+        <div class="reviews-wrapper" id="reviewsWrapper">
+            <!-- Reviews will slide in here -->
+        </div>
+
+        <script>
+            function openNav() {
+                document.getElementById("sidebar").style.left = "0";
+                document.getElementById("main-content").style.marginLeft = "250px";
+            }
+
+            function closeNav() {
+                document.getElementById("sidebar").style.left = "-250px";
+                document.getElementById("main-content").style.marginLeft = "0";
+            }
+
+            function submitReview(event) {
+                event.preventDefault();
+
+                const name = document.getElementById('name').value;
+                const reviewText = document.getElementById('reviewText').value;
+                const rating = document.querySelector('input[name="rating"]:checked').value;
+
+                const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+                reviews.push({ name, reviewText, rating });
+
+                localStorage.setItem('reviews', JSON.stringify(reviews));
+                document.querySelector('.review-form').reset();
+                displayReviews();
+            }
+
+            function displayReviews() {
+                const reviewsWrapper = document.getElementById('reviewsWrapper');
+                reviewsWrapper.innerHTML = '';
+
+                const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+
+                reviews.forEach((review, index) => {
+                    const reviewCard = document.createElement('div');
+                    reviewCard.classList.add('review-card');
+                    reviewCard.style.animationDelay = `${index * 0.2}s`;
+
+                    const ratingStars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
+
+                    reviewCard.innerHTML = `
+                        <div class="review-header">${review.name}</div>
+                        <div class="review-rating">${ratingStars}</div>
+                        <div class="review-text">${review.reviewText}</div>
+                    `;
+
+                    reviewsWrapper.appendChild(reviewCard);
+                });
+            }
+
+            window.onload = displayReviews;
+        </script>
+            <script>
+                // If the URL ends with ".html", remove it from the address bar
+                if (window.location.pathname.endsWith(".html")) {
+                    history.replaceState(null, "", window.location.pathname.replace("review.html", "review"));
+                }
+            </script>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #4876a1, #000000);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, p {
+            margin: 0;
+        }
+
+        /* Glowing Text Effect */
+        .glowing-text {
+            font-size: 50px;
+            font-weight: bold;
+            text-align: center;
+            text-shadow: 0 0 5px #fff, 0 0 10px #00e6e6, 0 0 20px #737794, 0 0 30px #00e6e6;
+            margin: 20px 0;
+        }
+
+        /* Sidebar Styles */
+        #sidebar {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            height: 100%;
+            width: 250px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            transition: 0.3s;
+            padding-top: 20px;
+            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.5);
+        }
+
+        #sidebar a {
+            padding: 15px 20px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #fff;
+            display: block;
+            transition: 0.3s;
+        }
+
+        #sidebar a:hover {
+            background: #00e6e6;
+            color: #000;
+            border-radius: 5px;
+        }
+
+        #sidebar .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Sidebar Toggle Button */
+        #menu-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 30px;
+            cursor: pointer;
+            color: #fff;
+        }
+
+        /* Main Content Styles */
+        #main-content {
+            margin-left: 0;
+            transition: margin-left 0.3s;
+            padding: 20px;
+        }
+
+        .content-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            padding: 20px 0;
+        }
+
+        .details, .image {
+            width: 45%;
+            margin: 20px 0;
+        }
+
+        .details h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            text-shadow: 0 0 3px #fff;
+        }
+
+        .details p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .details .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: linear-gradient(to right, #00e6e6, #009999);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .details .button:hover {
+            background: #fff;
+            color: #009999;
+            transform: scale(1.1);
+        }
+        /* Hover Grow Effect */
+        .hover-grow:hover {
+            transform: scale(1.01);
+            transition: transform 0.3s;
+        }
+        .image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        footer {
+               display: flex;
+               justify-content: space-between;
+               align-items: flex-start;
+               padding: 20px;
+               background-color: #333;
+               color: white;
+           }
+           footer .logo,
+           footer .quick-links,
+           footer .contact,
+           footer .social-icons {
+               flex: 1;
+           }
+           footer .logo img {
+               width: 20%;
+               border-radius: 2px;
+               margin-bottom: 10px;
+           }
+           footer .quick-links,
+           footer .social-icons {
+               display: flex;
+               flex-direction: column;
+           }
+           footer .quick-links a,
+           footer .social-icons a {
+               color: rgb(255, 250, 254);
+               margin-bottom: 10px;
+               text-decoration: none;
+           }
+           footer .contact p {
+               color: rgb(255, 255, 255);
+               margin-bottom: 5px;
+           }
+           footer .social-icons img {
+               width: 30px;
+               margin-bottom: 10px;
+           }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 1.5s;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <span class="close-btn" onclick="closeNav()">&times;</span>
+        <img src="https://www.cusaonline.ca/wp-content/uploads/2024/08/Screen-Shot-2024-08-22-at-11.40.11-AM.jpg" alt="Logo" style="width: 100%; border-radius: 8px; margin-bottom: 20px;">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="courses.html">Courses</a>
+        <a href="review.html">Reviews</a>
+        <a href="enquiry.html">Enquiry Us</a>
+        <a href="login.html">Log Out</a>
+    </div>
+
+    <!-- Main Content -->
+    <div id="main-content">
+        <span id="menu-btn" onclick="openNav()">&#9776;</span>
+        <h1 class="glowing-text fade-in" style="text-decoration: underline;">ABOUT US</h1>
+        <div class="text-container fade-in hover-grow">
+            <h2 style="text-decoration: underline;">Welcome to ThinkTank Education</h2>
+            <br>
+            <p>
+                ThinkTank, founded in 2002, is a global leader in technical education. Our mission is to equip professionals with practical skills to excel in today's tech landscape. We offer:
+            </p>
+            <ul>
+                <li>Hands-on learning with real-world projects</li> <br>
+                <li>State-of-the-art infrastructure</li> <br>
+                <li>Cutting-edge curriculum</li> <br>
+                <li>Experienced faculty from the industry</li> <br>
+                <li>Campuses in India, USA, UK, and Canada</li> <br>
+                <li>Over 1,000 successful graduates in top global companies</li>
+            </ul>
+            <br>
+            <p>
+                Join ThinkTank to innovate, think critically, and solve real-world challenges. Kickstart or upgrade your career with us and achieve your goals in the tech industry.
+            </p>
+        </div>
+    </div>
+
+        <div class="content-section">
+            <div class="details fade-in">
+                <h3><u>Online Learning</u></h3>
+                <p>"Empower Your Learning, Anytime, Anywhere." <br>
+                    With our platform, you can access top-quality courses and learn at your own pace, whether you're at home or on the go.</p>
+
+                <a href="courses.html" class="button">Explore Now</a>
+            </div>
+
+            <div class="image fade-in">
+                <img src="https://er.educause.edu/-/media/images/blogs/2020/8/er20_3206_706x394_blog.jpg" alt="Online Learning">
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .text-container {
+            background-color: 4876a1(87, 186, 210);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            font-family: 'Arial', sans-serif;
+            margin: 20px 10;
+        }
+    </style>
+
+    <!-- Footer -->
+    <footer>
+        <!-- Logo Section (Extreme Left) -->
+        <div class="logo">
+            <br>
+            
+            <img src="https://www.cusaonline.ca/wp-content/uploads/2024/08/Screen-Shot-2024-08-22-at-11.40.11-AM.jpg" alt="Logo" style="width: 80%; border-radius: 8px; margin-bottom: 20px;">
+        </div>
+        <br><br><br><br>
+
+        <!-- Quick Links Section (Left) -->
+        <div class="quick-links">
+            <br>
+            <a href="index.html">Home</a>
+            <a href="about.html">About Us</a>
+            <a href="courses.html">Courses</a>
+            <a href="review.html">Reviews</a>
+            <a href="enquiry.html">Enquiry Us</a>
+        </div>
+
+        <!-- Contact Us Section (Center) -->
+        <div class="contact">
+            <h4>Contact Us:</h4>
+            <p><a href="mailto: thinktank@gmail.com" style="color: white; text-decoration: none;">Email: thinktank@gmail.com</a></p>
+            <p><a href="tel:+919381910381" style="color: white; text-decoration: none;">Phone: +91 9381910381</a></p>
+            <p>Address: A/44 Indraprasth Corporate,<br> Satellite, Ahmedabad, India</p>
+        </div>
+
+        <!-- Follow Us Section (Extreme Right) -->
+        <div class="social-icons">
+            <p>Follow Us On:</p>
+            <div class="row">
+                <a href="https://www.facebook.com" target="main"><img src="https://upload.wikimedia.org/wikipedia/commons/c/cd/Facebook_logo_%28square%29.png" alt="Facebook"></a>
+                <a href="https://x.com" target="main"><img src="https://www.iconpacks.net/icons/2/free-twitter-logo-icon-2429-thumb.png" alt="Twitter"></a>
+            </div>
+            <div class="row">
+                <a href="https://linkedin.com" target="main"><img src="https://static.vecteezy.com/system/resources/previews/018/910/715/non_2x/linkedin-logo-linkedin-symbol-linkedin-icon-free-free-vector.jpg" alt="LinkedIn"></a>
+                <a href="https://instagram.com" target="main"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1000px-Instagram_logo_2022.svg.png" alt="Instagram"></a>
+            </div>
+            <p class="love">Made with ❤️ <i class="icon ion-heart"></i> by Bhakti</p>
+        </div>
+    </footer>
+
+
+    <script>
+        // Sidebar toggle functionality
+        function openNav() {
+            document.getElementById("sidebar").style.left = "0";
+            document.getElementById("main-content").style.marginLeft = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("sidebar").style.left = "-250px";
+            document.getElementById("main-content").style.marginLeft = "0";
+        }
+    </script>
+        <script>
+            // If the URL ends with ".html", remove it from the address bar
+            if (window.location.pathname.endsWith(".html")) {
+                history.replaceState(null, "", window.location.pathname.replace("about.html", "about"));
+            }
+        </script>
+</body>
+</html>
