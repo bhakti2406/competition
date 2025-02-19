@@ -25,17 +25,34 @@ This repository contains the source code for the ThinkTank Education website, wh
 - `login.html` - User login and signup page
 
 ## How to Use
-1. Clone or download this repository.
-2. Open `index.html` in a web browser to explore the website.
-3. Navigate using the sidebar menu to access different sections.
-4. Users can inquire, sign up, and leave reviews as needed.
+1. **Clone or Download Repository:**
+   - Clone the repository using `git clone <repository_url>` or download it as a ZIP file and extract it.
 
-## Contribution
-1. Fork this repository.
-2. Make changes and test them locally.
-3. Submit a pull request with a description of the modifications.
+2. **Open the Website:**
+   - Open `index.html` in a web browser to access the homepage.
+
+3. **Navigate Through the Website:**
+   - Use the sidebar menu or navigation links to explore different sections.
+
+4. **Browse Courses:**
+   - Visit the `courses.html` page to explore available courses.
+   - Click on a course for detailed descriptions, curriculum, and pricing.
+
+5. **Submit an Inquiry:**
+   - Go to the `enquiry.html` page to submit any questions or requests.
+   - Fill out the form and submit your inquiry.
+
+6. **Read and Submit Reviews:**
+   - Check out the `review.html` page to see user feedback.
+   - Submit your own review and rating to help others.
+
+7. **User Authentication:**
+   - Go to `login.html` to sign up or log in.
+   - Access additional features available for registered users.
 
 
 ## Contact
 For inquiries or support, please reach out through the Enquiry page on the website.
+
+
 
