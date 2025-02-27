@@ -1,3 +1,5 @@
+COURSES-
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -254,6 +256,9 @@
             background-repeat: no-repeat;
             height: 100vh;
         }
+        *{
+            
+        }
 </style>
 
 
@@ -264,7 +269,7 @@
 
     <div id="badgeIcon">
         <img src="https://cdn.iconscout.com/icon/free/png-512/free-medal-icon-download-in-svg-png-gif-file-formats--champion-award-winner-olympic-games-sign-medals-pack-sports-icons-3804833.png?f=webp&w=512" alt="Badge Icon">
-        <span id="badgeCount">90</span> Badges
+        <span id="badgeCount" >90</span> Badges
     </div>
     <div class="content"></div>
     <div class="search-sort">
@@ -658,14 +663,7 @@ document.getElementById("sort").addEventListener("change", function () {
         }
     })
     });
-    
 });
-</script>
-<script>
-    // If the URL ends with ".html", remove it from the address bar
-    if (window.location.pathname.endsWith(".html")) {
-        history.replaceState(null, "", window.location.pathname.replace("courses.html", "courses"));
-    }
 </script>
 </body>
 </html>
