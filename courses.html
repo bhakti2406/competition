@@ -416,7 +416,7 @@ function showCourseDetails(course) {
     // Restrict access to paid courses
     if ((course === 'webDev' && badges < 80) || 
         (course === 'dataScience' && badges < 120) || 
-        (course === 'cyberSecurity' && badges < 120)) {
+        (course === 'cyberSecurity' && badges < 180)) {
         alert("You need more badges to access this course.");
         return;
     }
