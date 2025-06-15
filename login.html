@@ -16,6 +16,11 @@
             align-items: center;
             color: #ffffff;
             overflow: hidden;
+            background-image: url('https://i.pinimg.com/736x/f7/2c/68/f72c68832ddbf2a9bfc180a81c344e2c.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
         }
 
         .curtain {
@@ -79,21 +84,13 @@
             padding: 20px;
         }
 
-        body {
-            background-image: url('https://i.pinimg.com/736x/f7/2c/68/f72c68832ddbf2a9bfc180a81c344e2c.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-        }
-
         .box {
             background: linear-gradient(145deg, #121821, #0a0e13);
             padding: 30px;
             border-radius: 20px;
             width: 100%;
             max-width: 400px;
-                        text-align: center;
+            text-align: center;
         }
 
         .box input, .box button, .box a {
@@ -238,10 +235,6 @@
     </div>
 
     <script>
-        let globalName = "";
-        let globalEmail = "";
-        let globalPassword = "";
-
         // Show login box
         function showLogin() {
             document.getElementById('signupBox').style.display = 'none';
@@ -261,7 +254,12 @@
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
 
-            const passwordValid = password.length >= 6 && /[A-Z]/.test(password) && /\d/.test(password);
+            // Password must be at least 6 characters, contain an uppercase letter, a digit, and a special character.
+            const passwordValid = password.length >= 6 && 
+                                  /[A-Z]/.test(password) && 
+                                  /\d/.test(password) &&
+                                  /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password);
+
             const isValid =
                 passwordValid &&
                 password === confirmPassword &&
@@ -272,30 +270,43 @@
             document.getElementById('signupButton').disabled = !isValid;
         });
 
-        // Submit signup form with validation check
+        // Submit signup form
         function submitSignup(event) {
-            event.preventDefault();
+            event.preventDefault(); // Prevent default form submission
 
             const name = document.getElementById('name').value.trim();
             const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
 
-            if (
-                password === confirmPassword &&
-                password.length >= 6 &&
-                name.length > 0 &&
-                email.includes('@') &&
-                email.includes('.')
-            ) {
-                globalName = name;
-                globalEmail = email;
-                globalPassword = password;
-                alert('Signup successful! Redirecting...');
-                showLogin();
-            } else {
-                alert('Please ensure all fields are filled out correctly.');
+            // Re-validate for submission (though button state should prevent this normally)
+            const passwordValid = password.length >= 6 && 
+                                  /[A-Z]/.test(password) && 
+                                  /\d/.test(password) &&
+                                  /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password);
+
+            if (password !== confirmPassword) {
+                alert('Passwords do not match. Please try again.');
+                return;
             }
+
+            if (!passwordValid) {
+                alert('Password must be at least 6 characters long, include an uppercase letter, a digit, and a special character.');
+                return;
+            }
+
+            if (name.length === 0 || !email.includes('@') || !email.includes('.')) {
+                alert('Please fill in all fields correctly, including a valid email.');
+                return;
+            }
+
+            // Store user data in localStorage
+            localStorage.setItem('registeredName', name);
+            localStorage.setItem('registeredEmail', email);
+            localStorage.setItem('registeredPassword', password); // In a real app, never store plain passwords!
+
+            alert('Signup successful! Redirecting to the Educational Portal.');
+            window.location.href = 'index.html'; // Redirect to index.html
         }
 
         // Submit login form
@@ -304,15 +315,20 @@
             const loginEmail = document.getElementById('loginEmail').value.trim();
             const loginPassword = document.getElementById('loginPassword').value;
 
+            // Retrieve stored user data from localStorage
+            const storedName = localStorage.getItem('registeredName');
+            const storedEmail = localStorage.getItem('registeredEmail');
+            const storedPassword = localStorage.getItem('registeredPassword');
+
             if (
-                loginName === globalName &&
-                loginEmail === globalEmail &&
-                loginPassword === globalPassword
+                loginName === storedName &&
+                loginEmail === storedEmail &&
+                loginPassword === storedPassword
             ) {
-                alert('Login successful! Redirecting...');
-                window.location.href = 'index.html';
+                alert('Login successful! Welcome back!');
+                window.location.href = 'index.html'; // Redirect to index.html
             } else {
-                alert('Invalid credentials. Please check your Name, Email, and Password.');
+                alert('Invalid credentials. Please check your Name, Email, and Password, or sign up if you don\'t have an account.');
             }
         }
 
@@ -324,14 +340,10 @@
             }, 500);
         };
 
-    </script>
-    <script>
         // If the URL ends with ".html", remove it from the address bar
         if (window.location.pathname.endsWith(".html")) {
             history.replaceState(null, "", window.location.pathname.replace("login.html", "login"));
         }
     </script>
-
 </body>
 </html>
-
