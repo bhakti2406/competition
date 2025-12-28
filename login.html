@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signup/Login</title>
+    <title>Think Tank Educational Portal</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -23,6 +23,7 @@
             background-attachment: fixed;
         }
 
+        /* Curtains */
         .curtain {
             position: fixed;
             top: 0;
@@ -34,13 +35,8 @@
             transition: transform 2s ease-in-out;
         }
 
-        .curtain.left {
-            transform: translateX(0);
-        }
-
         .curtain.right {
             left: 50%;
-            transform: translateX(0);
         }
 
         .container {
@@ -123,12 +119,6 @@
             background: linear-gradient(145deg, #5baaff, #3f91ff);
         }
 
-        .box button:disabled {
-            background: #444;
-            cursor: not-allowed;
-            opacity: 0.6;
-        }
-
         .box a {
             color: #3f91ff;
             text-decoration: none;
@@ -139,6 +129,18 @@
             text-decoration: underline;
         }
 
+        /* Popup and Overlay Styling */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000; /* Higher than curtains */
+            display: none;
+        }
+
         .popup {
             position: fixed;
             left: 50%;
@@ -147,8 +149,8 @@
             background: #1a1f26;
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.9), 0 0 10px rgba(63, 145, 255, 0.5);
-            z-index: 2000;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.9), 0 0 15px #3f91ff;
+            z-index: 2001; /* Higher than overlay */
             text-align: center;
             display: none;
             width: 300px;
@@ -171,27 +173,9 @@
             font-weight: bold;
         }
 
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 1999;
-            display: none;
-        }
-
         @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-                height: auto;
-            }
-
-            .left-side, .right-side {
-                width: 100%;
-                flex: none;
-            }
+            .container { flex-direction: column; height: auto; }
+            .left-side, .right-side { width: 100%; flex: none; }
         }
     </style>
 </head>
@@ -206,19 +190,19 @@
         <div class="right-side">
             <div class="box" id="signupBox">
                 <h2>Sign Up</h2>
-                <input type="text" id="name" placeholder="Name" required>
-                <input type="email" id="email" placeholder="Email" required>
-                <input type="password" id="password" placeholder="Password" required>
-                <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+                <input type="text" id="name" placeholder="Name">
+                <input type="email" id="email" placeholder="Email">
+                <input type="password" id="password" placeholder="Password">
+                <input type="password" id="confirmPassword" placeholder="Confirm Password">
                 <button id="signupButton" onclick="submitSignup(event)">Submit</button>
                 <a href="#" onclick="showLogin()">Already have an account? Login here</a>
             </div>
 
             <div class="box" id="loginBox" style="display: none;">
                 <h2>Login</h2>
-                <input type="text" id="loginName" placeholder="Name" required>
-                <input type="email" id="loginEmail" placeholder="Email" required>
-                <input type="password" id="loginPassword" placeholder="Password" required>
+                <input type="text" id="loginName" placeholder="Name">
+                <input type="email" id="loginEmail" placeholder="Email">
+                <input type="password" id="loginPassword" placeholder="Password">
                 <button onclick="submitLogin()">Login</button>
                 <a href="#" onclick="showSignup()">Don't have an account? Sign up here</a>
             </div>
@@ -232,7 +216,6 @@
     </div>
 
     <script>
-        // Toggle Views
         function showLogin() {
             document.getElementById('signupBox').style.display = 'none';
             document.getElementById('loginBox').style.display = 'block';
@@ -243,14 +226,10 @@
             document.getElementById('signupBox').style.display = 'block';
         }
 
-        // --- Custom Popup Control ---
         function triggerPopup(message) {
-            const popup = document.getElementById('popupMessage');
-            const overlay = document.getElementById('popupOverlay');
             document.getElementById('popupText').innerText = message;
-            
-            popup.style.display = 'block';
-            overlay.style.display = 'block';
+            document.getElementById('popupMessage').style.display = 'block';
+            document.getElementById('popupOverlay').style.display = 'block';
         }
 
         function closePopup() {
@@ -258,28 +237,6 @@
             document.getElementById('popupOverlay').style.display = 'none';
         }
 
-        // Live Validation for Button State
-        document.getElementById('signupBox').addEventListener('input', function () {
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-
-            const passwordValid = password.length >= 6 && 
-                                  /[A-Z]/.test(password) && 
-                                  /\d/.test(password) &&
-                                  /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password);
-
-            const isValid = passwordValid &&
-                            password === confirmPassword &&
-                            name.length > 0 &&
-                            email.includes('@') &&
-                            email.includes('.');
-
-            document.getElementById('signupButton').disabled = !isValid;
-        });
-
-        // Submit Signup with Format Popups
         function submitSignup(event) {
             event.preventDefault();
 
@@ -288,30 +245,37 @@
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
 
-            // 1. Email Format Check
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailPattern.test(email)) {
-                triggerPopup("Invalid Email: Please include '@' and a domain (e.g. .com)");
+            // 1. Check if fields are empty
+            if (!name || !email || !password) {
+                triggerPopup("Please fill in all fields.");
                 return;
             }
 
-            // 2. Password Format Check
+            // 2. Email Format Check
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                triggerPopup("Invalid Email: Please enter a valid email (e.g., name@example.com).");
+                return;
+            }
+
+            // 3. Password Format Check (Length, Uppercase, Digit, Special)
             const passwordValid = password.length >= 6 && 
                                   /[A-Z]/.test(password) && 
                                   /\d/.test(password) &&
                                   /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password);
 
             if (!passwordValid) {
-                triggerPopup("Password Requirement: 6+ characters, 1 Uppercase, 1 Digit, and 1 Special Character.");
+                triggerPopup("Password Error: Must be 6+ chars, include 1 Uppercase, 1 Digit, and 1 Special Character.");
                 return;
             }
 
+            // 4. Match check
             if (password !== confirmPassword) {
                 triggerPopup("Passwords do not match!");
                 return;
             }
 
-            // Store and Redirect
+            // Success: Store and Redirect
             localStorage.setItem('registeredName', name);
             localStorage.setItem('registeredEmail', email);
             localStorage.setItem('registeredPassword', password);
@@ -322,7 +286,6 @@
             }, 2000);
         }
 
-        // Submit Login with Format Popups
         function submitLogin() {
             const loginName = document.getElementById('loginName').value.trim();
             const loginEmail = document.getElementById('loginEmail').value.trim();
@@ -338,21 +301,16 @@
                     window.location.href = 'index.html';
                 }, 1500);
             } else {
-                triggerPopup("Invalid credentials. Please check your name, email, and password.");
+                triggerPopup("Invalid credentials. Please check your details.");
             }
         }
 
-        // Animation and URL Cleanup
         window.onload = function () {
             setTimeout(() => {
                 document.querySelector('.curtain.left').style.transform = 'translateX(-100%)';
                 document.querySelector('.curtain.right').style.transform = 'translateX(100%)';
             }, 500);
         };
-
-        if (window.location.pathname.endsWith(".html")) {
-            history.replaceState(null, "", window.location.pathname.replace("login.html", "login"));
-        }
     </script>
 </body>
 </html>
