@@ -1,308 +1,238 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signup/Login</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: radial-gradient(circle at center, #0a0e13, #000000);
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #ffffff;
-            overflow: hidden;
-            background-image: url('https://i.pinimg.com/736x/f7/2c/68/f72c68832ddbf2a9bfc180a81c344e2c.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Signup/Login</title>
 
-        .curtain {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 50%;
-            height: 100%;
-            background: black;
-            z-index: 1000;
-            transition: transform 2s ease-in-out;
-        }
+<style>
+body{
+    font-family: Arial, sans-serif;
+    margin:0;
+    padding:0;
+    background:url('https://i.pinimg.com/736x/f7/2c/68/f72c68832ddbf2a9bfc180a81c344e2c.jpg') center/cover fixed;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:#fff;
+}
 
-        .curtain.left { transform: translateX(0); }
-        .curtain.right { left: 50%; transform: translateX(0); }
+.curtain{
+    position:fixed;
+    top:0;
+    width:50%;
+    height:100%;
+    background:black;
+    z-index:1000;
+    transition:transform 2s ease;
+}
+.curtain.left{ left:0; }
+.curtain.right{ right:0; }
 
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            width: 90%;
-            max-width: 900px;
-            height: 80%;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 2px 10px rgba(255, 255, 255, 0.2);
-            position: relative;
-            z-index: 10;
-        }
+.container{
+    width:90%;
+    max-width:900px;
+    height:80%;
+    display:flex;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 10px 30px rgba(0,0,0,0.8);
+}
 
-        .left-side {
-            flex: 1;
-            background: url('https://i.pinimg.com/736x/40/56/0c/40560c133189ebbed02549dab7114656.jpg') no-repeat center center;
-            background-size: cover;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
+.left-side{
+    flex:1;
+    background:url('https://i.pinimg.com/736x/40/56/0c/40560c133189ebbed02549dab7114656.jpg') center/cover;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
 
-        .left-side h1 {
-            font-size: 2rem;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 10px 20px;
-            border-radius: 10px;
-            text-align: center;
-        }
+.right-side{
+    flex:1;
+    background:#121821;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
 
-        .right-side {
-            flex: 1;
-            background: #121821;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            padding: 20px;
-        }
+.box{
+    width:90%;
+    max-width:400px;
+    background:#0a0e13;
+    padding:30px;
+    border-radius:20px;
+    text-align:center;
+}
 
-        .box {
-            background: linear-gradient(145deg, #121821, #0a0e13);
-            padding: 30px;
-            border-radius: 20px;
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-        }
+.box input,.box button{
+    width:90%;
+    padding:14px;
+    margin:12px auto;
+    border:none;
+    border-radius:8px;
+    background:#121821;
+    color:white;
+}
 
-        .box input, .box button, .box a {
-            display: block;
-            width: 90%;
-            margin: 15px auto;
-            padding: 15px;
-            border: none;
-            border-radius: 8px;
-            background: #121821;
-            color: #ffffff;
-            font-size: 1.2rem;
-            outline: none;
-            transition: all 0.3s ease;
-        }
+.box button{
+    background:#3f91ff;
+    font-weight:bold;
+    cursor:pointer;
+}
+.box button:disabled{
+    background:#555;
+    cursor:not-allowed;
+}
 
-        .box input:focus {
-            box-shadow: 0 0 15px #3f91ff;
-            background: #1a1f26;
-        }
+.box a{ color:#3f91ff; text-decoration:none; }
 
-        .box button {
-            background: linear-gradient(145deg, #3f91ff, #1f66cc);
-            color: #ffffff;
-            font-weight: bold;
-            cursor: pointer;
-        }
+.popup{
+    position:fixed;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    background:#1a1f26;
+    padding:20px;
+    border-radius:12px;
+    display:none;
+    z-index:2000;
+    width:90%;
+    max-width:350px;
+    text-align:center;
+}
 
-        .box button:hover { background: linear-gradient(145deg, #5baaff, #3f91ff); }
-
-        .box a { color: #3f91ff; text-decoration: none; font-size: 1rem; }
-        .box a:hover { text-decoration: underline; }
-
-        /* POPUP STYLING */
-        .popup {
-            position: fixed;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, 150%); /* Start off-screen */
-            background: #1a1f26;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 2px 10px rgba(63, 145, 255, 0.4);
-            z-index: 2000;
-            text-align: center;
-            width: 320px;
-            transition: transform 0.5s ease-out;
-        }
-
-        .popup.active {
-            transform: translate(-50%, -50%); /* Slide to center */
-        }
-
-        .popup h3 { margin-bottom: 15px; color: #ffffff; font-size: 1.1rem; }
-
-        .popup button {
-            background: linear-gradient(145deg, #3f91ff, #1f66cc);
-            color: #ffffff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 1999;
-            display: none;
-        }
-
-        @media (max-width: 768px) {
-            .container { flex-direction: column; height: auto; }
-            .left-side, .right-side { width: 100%; flex: none; }
-        }
-    </style>
+.overlay{
+    position:fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background:rgba(0,0,0,.6);
+    display:none;
+    z-index:1500;
+}
+</style>
 </head>
+
 <body>
-    <div class="curtain left"></div>
-    <div class="curtain right"></div>
 
-    <div class="container">
-        <div class="left-side">
-            <h1>Welcome to Think Tank Educational Portal</h1>
-        </div>
-        <div class="right-side">
-            <div class="box" id="signupBox">
-                <h2>Sign Up</h2>
-                <input type="text" id="name" placeholder="Name">
-                <input type="email" id="email" placeholder="Email">
-                <input type="password" id="password" placeholder="Password">
-                <input type="password" id="confirmPassword" placeholder="Confirm Password">
-                <button id="signupButton" onclick="submitSignup(event)">Submit</button>
-                <a href="#" onclick="showLogin()">Already have an account? Login here</a>
-            </div>
+<div class="curtain left"></div>
+<div class="curtain right"></div>
 
-            <div class="box" id="loginBox" style="display: none;">
-                <h2>Login</h2>
-                <input type="text" id="loginName" placeholder="Name">
-                <input type="email" id="loginEmail" placeholder="Email">
-                <input type="password" id="loginPassword" placeholder="Password">
-                <button onclick="submitLogin()">Login</button>
-                <a href="#" onclick="showSignup()">Don't have an account? Sign up here</a>
-            </div>
-        </div>
+<div class="container">
+    <div class="left-side">
+        <h1>Welcome to Think Tank Educational Portal</h1>
     </div>
 
-    <div class="overlay" id="popupOverlay" onclick="closePopup()"></div>
-    <div class="popup" id="popupMessage">
-        <h3 id="popupText"></h3>
-        <button onclick="closePopup()">OK</button>
+    <div class="right-side">
+        <div class="box" id="signupBox">
+            <h2>Sign Up</h2>
+            <input id="name" placeholder="Name">
+            <input id="email" placeholder="Email">
+            <input id="password" type="password" placeholder="Password">
+            <input id="confirmPassword" type="password" placeholder="Confirm Password">
+            <button id="signupButton" disabled>Submit</button>
+            <a href="#" onclick="showLogin()">Already have an account?</a>
+        </div>
+
+        <div class="box" id="loginBox" style="display:none">
+            <h2>Login</h2>
+            <input id="loginName" placeholder="Name">
+            <input id="loginEmail" placeholder="Email">
+            <input id="loginPassword" type="password" placeholder="Password">
+            <button onclick="submitLogin()">Login</button>
+            <a href="#" onclick="showSignup()">Sign up</a>
+        </div>
     </div>
+</div>
 
-    <script>
-        function showLogin() {
-            document.getElementById('signupBox').style.display = 'none';
-            document.getElementById('loginBox').style.display = 'block';
-        }
+<div class="overlay" id="overlay"></div>
+<div class="popup" id="popup">
+    <h3 id="popupText"></h3>
+    <button onclick="closePopup()">OK</button>
+</div>
 
-        function showSignup() {
-            document.getElementById('loginBox').style.display = 'none';
-            document.getElementById('signupBox').style.display = 'block';
-        }
+<script>
+function showPopup(msg){
+    document.getElementById("popupText").innerHTML = msg;
+    document.getElementById("popup").style.display="block";
+    document.getElementById("overlay").style.display="block";
+}
+function closePopup(){
+    document.getElementById("popup").style.display="none";
+    document.getElementById("overlay").style.display="none";
+}
 
-        // --- CUSTOM POPUP LOGIC ---
-        function triggerPopup(message) {
-            document.getElementById('popupText').innerText = message;
-            document.getElementById('popupOverlay').style.display = 'block';
-            document.getElementById('popupMessage').style.display = 'block';
-            // Trigger animation
-            setTimeout(() => {
-                document.getElementById('popupMessage').classList.add('active');
-            }, 10);
-        }
+function showLogin(){
+    signupBox.style.display="none";
+    loginBox.style.display="block";
+}
+function showSignup(){
+    loginBox.style.display="none";
+    signupBox.style.display="block";
+}
 
-        function closePopup() {
-            document.getElementById('popupMessage').classList.remove('active');
-            setTimeout(() => {
-                document.getElementById('popupMessage').style.display = 'none';
-                document.getElementById('popupOverlay').style.display = 'none';
-            }, 500);
-        }
+signupBox.addEventListener("input",()=>{
+    const name=nameInput.value.trim();
+    const email=emailInput.value.trim();
+    const pass=password.value;
+    const confirm=confirmPassword.value;
 
-        // Submit signup form
-        function submitSignup(event) {
-            event.preventDefault();
+    const validPass =
+        pass.length>=6 &&
+        /[A-Z]/.test(pass) &&
+        /\d/.test(pass) &&
+        /[!@#$%^&*]/.test(pass);
 
-            const name = document.getElementById('name').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
+    signupButton.disabled = !(name && email.includes("@") && email.includes(".") && validPass && pass===confirm);
+});
 
-            // VALIDATION CHECKS
-            if (name === "" || email === "" || password === "") {
-                triggerPopup("Error: All fields are required!");
-                return;
-            }
+signupButton.addEventListener("click",()=>{
+    if(signupButton.disabled){
+        showPopup(
+            "Please fill details correctly:<br><br>" +
+            "• Valid Email<br>" +
+            "• Password ≥ 6 chars<br>" +
+            "• 1 Uppercase letter<br>" +
+            "• 1 Number<br>" +
+            "• 1 Special character<br>" +
+            "• Passwords must match"
+        );
+        return;
+    }
 
-            // Email format check
-            if (!email.includes('@') || !email.includes('.')) {
-                triggerPopup("Error: Please enter a valid email address (e.g., user@example.com)");
-                return;
-            }
+    localStorage.setItem("registeredName",nameInput.value);
+    localStorage.setItem("registeredEmail",emailInput.value);
+    localStorage.setItem("registeredPassword",password.value);
 
-            // Password format check
-            const passwordValid = password.length >= 6 && 
-                                  /[A-Z]/.test(password) && 
-                                  /\d/.test(password) &&
-                                  /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password);
+    showPopup("Signup successful! Redirecting...");
+    setTimeout(()=>location.href="index.html",1500);
+});
 
-            if (!passwordValid) {
-                triggerPopup("Password Requirement: At least 6 characters, one uppercase letter, one number, and one special character.");
-                return;
-            }
+function submitLogin(){
+    if(
+        loginName.value===localStorage.getItem("registeredName") &&
+        loginEmail.value===localStorage.getItem("registeredEmail") &&
+        loginPassword.value===localStorage.getItem("registeredPassword")
+    ){
+        location.href="index.html";
+    }else{
+        showPopup("Invalid credentials. Please try again.");
+    }
+}
 
-            if (password !== confirmPassword) {
-                triggerPopup("Error: Passwords do not match!");
-                return;
-            }
+window.onload=()=>{
+    setTimeout(()=>{
+        document.querySelector(".curtain.left").style.transform="translateX(-100%)";
+        document.querySelector(".curtain.right").style.transform="translateX(100%)";
+    },500);
+};
 
-            // If everything is correct
-            localStorage.setItem('registeredName', name);
-            localStorage.setItem('registeredEmail', email);
-            localStorage.setItem('registeredPassword', password);
+const nameInput=document.getElementById("name");
+const emailInput=document.getElementById("email");
+const password=document.getElementById("password");
+const confirmPassword=document.getElementById("confirmPassword");
+const signupButton=document.getElementById("signupButton");
+</script>
 
-            triggerPopup("Signup successful! Redirecting to the portal...");
-            setTimeout(() => {
-                window.location.href = 'index.html';
-            }, 2000);
-        }
-
-        function submitLogin() {
-            const loginName = document.getElementById('loginName').value.trim();
-            const loginEmail = document.getElementById('loginEmail').value.trim();
-            const loginPassword = document.getElementById('loginPassword').value;
-
-            const storedName = localStorage.getItem('registeredName');
-            const storedEmail = localStorage.getItem('registeredEmail');
-            const storedPassword = localStorage.getItem('registeredPassword');
-
-            if (loginName === storedName && loginEmail === storedEmail && loginPassword === storedPassword) {
-                triggerPopup("Login successful! Welcome back!");
-                setTimeout(() => { window.location.href = 'index.html'; }, 1500);
-            } else {
-                triggerPopup("Invalid credentials. Please check your details.");
-            }
-        }
-
-        window.onload = function () {
-            setTimeout(() => {
-                document.querySelector('.curtain.left').style.transform = 'translateX(-100%)';
-                document.querySelector('.curtain.right').style.transform = 'translateX(100%)';
-            }, 500);
-        };
-    </script>
 </body>
 </html>
