@@ -98,11 +98,6 @@ body{
     cursor:pointer;
 }
 
-.box button:disabled{
-    background:#555;
-    cursor:not-allowed;
-}
-
 .box a{
     color:#3f91ff;
     text-decoration:none;
@@ -166,7 +161,7 @@ body{
             <input id="email" placeholder="Email">
             <input id="password" type="password" placeholder="Password">
             <input id="confirmPassword" type="password" placeholder="Confirm Password">
-            <button id="signupButton" disabled>Submit</button>
+            <button id="signupButton">Submit</button>
             <a href="#" onclick="showLogin()">Already have an account? Login here</a>
         </div>
 
@@ -189,24 +184,32 @@ body{
 </div>
 
 <script>
+// ELEMENTS
+const signupBox = document.getElementById("signupBox");
+const loginBox = document.getElementById("loginBox");
+
 const nameInput = document.getElementById("name");
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
 const confirmPasswordInput = document.getElementById("confirmPassword");
 const signupButton = document.getElementById("signupButton");
 
-/* POPUP FUNCTIONS */
+const loginName = document.getElementById("loginName");
+const loginEmail = document.getElementById("loginEmail");
+const loginPassword = document.getElementById("loginPassword");
+
+// POPUP
 function showPopup(msg){
-    document.getElementById("popupText").innerHTML = msg;
-    document.getElementById("popup").style.display="block";
-    document.getElementById("overlay").style.display="block";
+    popupText.innerHTML = msg;
+    popup.style.display = "block";
+    overlay.style.display = "block";
 }
 function closePopup(){
-    document.getElementById("popup").style.display="none";
-    document.getElementById("overlay").style.display="none";
+    popup.style.display = "none";
+    overlay.style.display = "none";
 }
 
-/* TOGGLE */
+// TOGGLE
 function showLogin(){
     signupBox.style.display="none";
     loginBox.style.display="block";
@@ -216,8 +219,8 @@ function showSignup(){
     signupBox.style.display="block";
 }
 
-/* VALIDATION */
-signupBox.addEventListener("input", ()=>{
+// SUBMIT SIGNUP
+signupButton.addEventListener("click", ()=>{
     const name = nameInput.value.trim();
     const email = emailInput.value.trim();
     const pass = passwordInput.value;
@@ -229,39 +232,28 @@ signupBox.addEventListener("input", ()=>{
         /\d/.test(pass) &&
         /[!@#$%^&*]/.test(pass);
 
-    signupButton.disabled = !(
-        name &&
-        email.includes("@") &&
-        email.includes(".") &&
-        validPassword &&
-        pass === confirm
-    );
-});
-
-/* SUBMIT */
-signupButton.addEventListener("click", ()=>{
-    if(signupButton.disabled){
+    if(!name || !email.includes("@") || !email.includes(".") || !validPassword || pass !== confirm){
         showPopup(
             "Please fill details correctly:<br><br>" +
-            "• Valid email address<br>" +
+            "• Valid email<br>" +
             "• Password ≥ 6 characters<br>" +
-            "• One uppercase letter<br>" +
-            "• One number<br>" +
-            "• One special character<br>" +
+            "• 1 uppercase letter<br>" +
+            "• 1 number<br>" +
+            "• 1 special character<br>" +
             "• Passwords must match"
         );
         return;
     }
 
-    localStorage.setItem("registeredName", nameInput.value);
-    localStorage.setItem("registeredEmail", emailInput.value);
-    localStorage.setItem("registeredPassword", passwordInput.value);
+    localStorage.setItem("registeredName", name);
+    localStorage.setItem("registeredEmail", email);
+    localStorage.setItem("registeredPassword", pass);
 
     showPopup("Signup successful! Redirecting...");
     setTimeout(()=>window.location.href="index.html",1500);
 });
 
-/* LOGIN */
+// LOGIN
 function submitLogin(){
     if(
         loginName.value === localStorage.getItem("registeredName") &&
@@ -274,7 +266,7 @@ function submitLogin(){
     }
 }
 
-/* CURTAIN */
+// CURTAIN
 window.onload = ()=>{
     setTimeout(()=>{
         document.querySelector(".curtain.left").style.transform="translateX(-100%)";
