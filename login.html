@@ -56,14 +56,12 @@ body{
     text-align:center;
 }
 
-/* IMPORTANT FIX */
 .right-side{
     flex:1;
     background:#121821;
     display:flex;
+    align-items:center;
     justify-content:center;
-    padding-top:40px;
-    overflow-y:auto;
 }
 
 .right-content{
@@ -71,9 +69,9 @@ body{
     display:flex;
     flex-direction:column;
     align-items:center;
+    gap:20px;
 }
 
-/* MAIN LOGIN / SIGNUP CARD */
 .box{
     width:90%;
     max-width:400px;
@@ -105,17 +103,16 @@ body{
     text-decoration:none;
 }
 
-/* SEPARATE LOWER CARD */
+/* EXTRA BOX */
 .extra-box{
-    margin-top:25px;
     width:90%;
     max-width:400px;
-    background:#0f172a;
-    padding:18px;
+    background:#0a0e13;
+    padding:20px;
     border-radius:16px;
     text-align:center;
     color:#cbd5e1;
-    box-shadow:0 8px 25px rgba(0,0,0,.7);
+    box-shadow:0 6px 20px rgba(0,0,0,.6);
 }
 
 .extra-box a{
@@ -192,7 +189,7 @@ body{
                 <a href="#" onclick="showSignup()">Sign up</a>
             </div>
 
-            <!-- CLEARLY SEPARATE BOX -->
+            <!-- EXTRA BOX BELOW -->
             <div class="extra-box">
                 <p>✨ New here?</p>
                 <p>Create an account to access courses, quizzes, and resources.</p>
@@ -242,6 +239,7 @@ function showSignup(){
     signupBox.style.display="block";
 }
 
+/* SUBMIT SIGNUP */
 signupButton.addEventListener("click", ()=>{
     const name = nameInput.value.trim();
     const email = emailInput.value.trim();
@@ -287,6 +285,7 @@ signupButton.addEventListener("click", ()=>{
     setTimeout(()=>window.location.href="index.html",1500);
 });
 
+/* LOGIN */
 function submitLogin(){
     if(
         loginName.value === localStorage.getItem("registeredName") &&
@@ -299,6 +298,7 @@ function submitLogin(){
     }
 }
 
+/* CURTAIN */
 window.onload = ()=>{
     setTimeout(()=>{
         document.querySelector(".curtain.left").style.transform="translateX(-100%)";
