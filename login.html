@@ -64,14 +64,6 @@ body{
     justify-content:center;
 }
 
-.right-content{
-    width:100%;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:20px;
-}
-
 .box{
     width:90%;
     max-width:400px;
@@ -101,24 +93,6 @@ body{
 .box a{
     color:#3f91ff;
     text-decoration:none;
-}
-
-/* EXTRA BOX */
-.extra-box{
-    width:90%;
-    max-width:400px;
-    background:#0a0e13;
-    padding:20px;
-    border-radius:16px;
-    text-align:center;
-    color:#cbd5e1;
-    box-shadow:0 6px 20px rgba(0,0,0,.6);
-}
-
-.extra-box a{
-    color:#3f91ff;
-    text-decoration:none;
-    font-weight:bold;
 }
 
 /* POPUP */
@@ -166,36 +140,25 @@ body{
     </div>
 
     <div class="right-side">
-        <div class="right-content">
+        <!-- SIGNUP -->
+        <div class="box" id="signupBox">
+            <h2>Sign Up</h2>
+            <input id="name" placeholder="Name">
+            <input id="email" placeholder="Email">
+            <input id="password" type="password" placeholder="Password">
+            <input id="confirmPassword" type="password" placeholder="Confirm Password">
+            <button id="signupButton">Submit</button>
+            <a href="#" onclick="showLogin()">Already have an account? Login</a>
+        </div>
 
-            <!-- SIGNUP -->
-            <div class="box" id="signupBox">
-                <h2>Sign Up</h2>
-                <input id="name" placeholder="Name">
-                <input id="email" placeholder="Email">
-                <input id="password" type="password" placeholder="Password">
-                <input id="confirmPassword" type="password" placeholder="Confirm Password">
-                <button id="signupButton">Submit</button>
-                <a href="#" onclick="showLogin()">Already have an account? Login</a>
-            </div>
-
-            <!-- LOGIN -->
-            <div class="box" id="loginBox" style="display:none;">
-                <h2>Login</h2>
-                <input id="loginName" placeholder="Name">
-                <input id="loginEmail" placeholder="Email">
-                <input id="loginPassword" type="password" placeholder="Password">
-                <button onclick="submitLogin()">Login</button>
-                <a href="#" onclick="showSignup()">Sign up</a>
-            </div>
-
-            <!-- EXTRA BOX BELOW -->
-            <div class="extra-box">
-                <p>✨ New here?</p>
-                <p>Create an account to access courses, quizzes, and resources.</p>
-                <a href="#" onclick="showSignup()">Go to Sign Up</a>
-            </div>
-
+        <!-- LOGIN -->
+        <div class="box" id="loginBox" style="display:none;">
+            <h2>Login</h2>
+            <input id="loginName" placeholder="Name">
+            <input id="loginEmail" placeholder="Email">
+            <input id="loginPassword" type="password" placeholder="Password">
+            <button onclick="submitLogin()">Login</button>
+            <a href="#" onclick="showSignup()">Sign up</a>
         </div>
     </div>
 </div>
@@ -309,3 +272,4 @@ window.onload = ()=>{
 
 </body>
 </html>
+
