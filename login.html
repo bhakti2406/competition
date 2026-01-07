@@ -64,7 +64,6 @@ body{
     justify-content:center;
 }
 
-/* MAIN CARD */
 .box{
     width:90%;
     max-width:400px;
@@ -91,13 +90,9 @@ body{
     cursor:pointer;
 }
 
-/* SECONDARY BLUE BUTTON */
-.switch-btn{
-    margin-top:10px;
-    background:#3f91ff;
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
+.box a{
+    color:#3f91ff;
+    text-decoration:none;
 }
 
 /* POPUP */
@@ -145,7 +140,6 @@ body{
     </div>
 
     <div class="right-side">
-
         <!-- SIGNUP -->
         <div class="box" id="signupBox">
             <h2>Sign Up</h2>
@@ -154,9 +148,7 @@ body{
             <input id="password" type="password" placeholder="Password">
             <input id="confirmPassword" type="password" placeholder="Confirm Password">
             <button id="signupButton">Submit</button>
-
-            <!-- BLUE SWITCH BUTTON -->
-            <button class="switch-btn" onclick="showLogin()">Login</button>
+            <a href="#" onclick="showLogin()">Already have an account? Login</a>
         </div>
 
         <!-- LOGIN -->
@@ -166,11 +158,8 @@ body{
             <input id="loginEmail" placeholder="Email">
             <input id="loginPassword" type="password" placeholder="Password">
             <button onclick="submitLogin()">Login</button>
-
-            <!-- BLUE SWITCH BUTTON -->
-            <button class="switch-btn" onclick="showSignup()">Sign Up</button>
+            <a href="#" onclick="showSignup()">Sign up</a>
         </div>
-
     </div>
 </div>
 
@@ -231,7 +220,13 @@ signupButton.addEventListener("click", ()=>{
         !/\d/.test(pass) ||
         !/[!@#$%^&*]/.test(pass)
     ){
-        showPopup("Weak password.");
+        showPopup(
+            "Password must contain:<br><br>" +
+            "• At least 6 characters<br>" +
+            "• One uppercase letter<br>" +
+            "• One number<br>" +
+            "• One special character"
+        );
         return;
     }
 
@@ -249,7 +244,8 @@ signupButton.addEventListener("click", ()=>{
     localStorage.setItem("registeredEmail", email);
     localStorage.setItem("registeredPassword", pass);
 
-    showPopup("Signup successful!");
+    showPopup("Signup successful! Redirecting...");
+    setTimeout(()=>window.location.href="index.html",1500);
 });
 
 /* LOGIN */
@@ -276,3 +272,4 @@ window.onload = ()=>{
 
 </body>
 </html>
+
